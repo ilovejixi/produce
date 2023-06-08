@@ -1,19 +1,21 @@
 package com.produce.produce.controller.elasticsearch;
 
+import com.produce.produce.pojo.AmountFlow;
 import com.produce.produce.service.ElasticSearchService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 @RestController
+@RequestMapping("/elasticsearch")
 public class ElasticSearchController {
 
     @Resource
     private ElasticSearchService elasticSearchService;
 
-    @GetMapping("/insert")
-    public String insert(){
+    @PostMapping("/insert")
+    public String insert(@RequestBody AmountFlow AmountFlow){
+        elasticSearchService.insert(AmountFlow);
         return "SUCCESS";
     }
 
@@ -24,12 +26,12 @@ public class ElasticSearchController {
 
     @GetMapping("/delete")
     public String delete(){
-        return "SUCCESS";
+        return elasticSearchService.delete();
     }
 
     @GetMapping("/find")
     public String find(){
-        return "SUCCESS";
+        return elasticSearchService.find();
     }
 
 }
